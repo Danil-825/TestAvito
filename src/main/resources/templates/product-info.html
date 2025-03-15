@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о товаре</title>
+</head>
+<body>
+<h1>Информация о товаре</h1>
+<p><b>Название:</b> <span th:text="${product.name}"></span></p>
+<p><b>Описание:</b> <span th:text="${product.description}"></span></p>
+<p><b>Цена:</b> <span th:text="${product.price} + ' руб.'"></span></p>
+<p><b>Город:</b> <span th:text="${product.city}"></span></p>
+<p><b>Автор:</b> <span th:text="${product.author}"></span></p>
+
+<!-- Форма для удаления товара -->
+<form th:action="@{/products/delete/{id}(id=${product.id})}" method="post">
+    <button type="submit">Удалить товар</button>
+</form>
+<br>
+<a href="/">Вернуться на главную</a>
+</body>
+</html>
