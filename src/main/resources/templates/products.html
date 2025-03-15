@@ -6,6 +6,10 @@
 </head>
 <body>
 <h1>Список товаров</h1>
+<form action="/" method="get">
+    Поиск по названию: <input type="text" name="name"><br>
+    <input type="submit" value="Поиск"/>
+</form>
 <div th:each="product : ${products}">
     <p>
         <b th:text="${product.name}"></b>
