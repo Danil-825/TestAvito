@@ -6,6 +6,9 @@
 </head>
 <body>
 <h1>Информация о товаре</h1>
+<img src="/images/${product.images.get(0)}" height="60px"/><br><br>
+<img src="/images/${product.images.get(1)?if_exists}" height="60px"/><br><br>
+<img src="/images/${product.images.get(2)?if_exists}" height="60px"/><br><br>
 <p><b>Название:</b> <span th:text="${product.name}"></span></p>
 <p><b>Описание:</b> <span th:text="${product.description}"></span></p>
 <p><b>Цена:</b> <span th:text="${product.price} + ' руб.'"></span></p>

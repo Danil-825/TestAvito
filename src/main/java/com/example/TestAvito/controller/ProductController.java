@@ -6,6 +6,9 @@ import com.example.TestAvito.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Controller
 public class ProductController {
@@ -25,16 +28,14 @@ public class ProductController {
     @GetMapping("/product/{id}")
     public String productInfo(@PathVariable Long id, Model model) {
         Product product = productService.getProductById(id);
-        if (product == null) {
-            return "redirect:/"; // Если товар не найден, перенаправляем на главную
-        }
-        model.addAttribute("product", product); // Передаем один товар в шаблон
+        model.addAttribute("product", product);
+        model.addAttribute("images", product.getImages());
         return "product-info";
     }
 
     @PostMapping("/products/create")
-    public String createProduct(@ModelAttribute Product product) {
-        productService.saveProduct(product);
+    public String createProduct(@RequestParam("file1") MultipartFile file1, @RequestParam("file2") MultipartFile file2, @RequestParam("file3") MultipartFile file3, Product product) throws IOException {
+        productService.saveProduct(product, file1, file2, file3);
         return "redirect:/";
     }
 
