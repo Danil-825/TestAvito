@@ -68,8 +68,12 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
-    @Transactional(readOnly = true)  // Только для чтения
+    @Transactional(readOnly = true)
     public Product getProductById(Long id) {
-        return productRepository.findById(id).orElse(null);
+        Product product = productRepository.findById(id).orElse(null);
+        if (product != null) {
+            product.getImages().size();
+        }
+        return product;
     }
 }
