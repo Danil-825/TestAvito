@@ -1,39 +1,49 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Список товаров</title>
+    <title>Авито</title>
 </head>
 <body>
-<h1>Список товаров</h1>
+<h1>Авито</h1><hr>
+<div th:if="${user.email}">
+    <h3>Мой пользователя: <i th:text="${user.name}"></i></h3>
+    <form action="/logout" method="post">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+        <input type="submit" value="Выйти"/>
+    </form>
+</div>
+<div th:unless="${user.email}">
+    <a href="/login">Войти</a>
+</div>
+<hr>
+<h4>Товары со всей России</h4>
 <form action="/" method="get">
-    Поиск по названию: <input type="text" name="name"><br>
+    Поиск по названию объявления: <input type="text" name="name"><br>
     <input type="submit" value="Поиск"/>
 </form>
-<div th:each="product : ${products}">
-    <p>
-        <b th:text="${product.name}"></b>
-        <span th:text="${product.price} + ' руб.'"></span> |
-        <a th:href="@{/product/{id}(id=${product.id})}">Подробнее</a> |
-        <!-- Форма для удаления товара -->
-    <form th:action="@{/products/delete/{id}(id=${product.id})}" method="post" style="display: inline;">
-        <button type="submit">Удалить</button>
-    </form>
-    </p>
+<div th:if="${not #lists.isEmpty(products)}">
+    <div th:each="product : ${products}">
+        <p><b th:text="${product.name}"></b> <span th:text="${product.price} + ' руб.'"></span> | <a th:href="@{/product/{id}(id=${product.id})}">Подробнее</a></p>
+    </div>
+</div>
+<div th:unless="${not #lists.isEmpty(products)}">
+    <h3>Товаров нет</h3>
 </div>
 
-<hr>
-<h3>Создать новый товар</h3>
-<form th:action="@{/products/create}" method="post" enctype="multipart/form-data">
-    Название товара: <input type="text" name="name"/><br><br>
-    Описание товара: <input type="text" name="description"/><br><br>
-    Цена: <input type="number" name="price"/><br><br>
-    Город: <input type="text" name="city"/><br><br>
-    Имя автора: <input type="text" name="author"/><br><br>
-    Первая фотография: <input type="file" name="file1"/><br><br>
-    Первая фотография: <input type="file" name="file2"/><br><br>
-    Первая фотография: <input type="file" name="file3"/><br><br>
-    <input type="submit" value="Добавить товар"/>
-</form>
+<div th:if="${user.email}">
+    <hr>
+    <h3>Создать новый товар</h3>
+    <form action="/products/create" method="post" enctype="multipart/form-data">
+        Название объявления: <input type="text" name="name"/><br><br>
+        Описание объявления: <input type="text" name="description"/><br><br>
+        Цена: <input type="number" name="price"/><br><br>
+        Город: <input type="text" name="city"/><br><br>
+        Первая фотография: <input type="file" name="file1"/><br><br>
+        Вторая фотография: <input type="file" name="file2"/><br><br>
+        Третья фотография: <input type="file" name="file3"/><br><br>
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+        <input type="submit" value="Добавить товар"/>
+    </form>
+</div>
 </body>
 </html>

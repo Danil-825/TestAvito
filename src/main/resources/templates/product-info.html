@@ -18,12 +18,9 @@
 <p><b>Описание:</b> <span th:text="${product.description}"></span></p>
 <p><b>Цена:</b> <span th:text="${product.price} + ' руб.'"></span></p>
 <p><b>Город:</b> <span th:text="${product.city}"></span></p>
-<p><b>Автор:</b> <span th:text="${product.author}"></span></p>
+<p><b>Автор:</b> <p th:text="${product.user?.name} ?: 'Не указан'"></p></p>
+<p><b>Номер телефона:</b> <span th:text="${product.user?.phoneNumber} ?: 'не указан'"></span></p>
 
-<!-- Форма для удаления товара -->
-<form th:action="@{/products/delete/{id}(id=${product.id})}" method="post">
-    <button type="submit">Удалить товар</button>
-</form>
 <br>
 <a href="/">Вернуться на главную</a>
 </body>
