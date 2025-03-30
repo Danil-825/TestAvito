@@ -5,9 +5,11 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
-@Table(name = "images")
+@Table(name = "images", schema = "schema_javito")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,6 +26,7 @@ public class Image {
     @Column(name = "is_Preview_Image")
     private boolean isPreviewImage;
     @Lob
+    @JdbcTypeCode(SqlTypes.BINARY)
     private byte[] bytes;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
