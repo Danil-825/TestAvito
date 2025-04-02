@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Авито</title>
+</head>
+<body>
+<h1>Авито</h1><hr>
+<h4>Панель управления для админа</h4>
+<hr>
+
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Email</th>
+        <th>Номер телефона</th>
+        <th>Активность</th>
+        <th>Роли</th>
+        <th>Банк</th>
+        <th>Редактирование</th>
+        <th>Подробная информация</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Блок с пользователями -->
+    <tr th:each="user : ${users}" th:unless="${users == null or users.isEmpty()}">
+        <td th:text="${user.email}">user@example.com</td>
+        <td th:text="${user.phoneNumber}">+71234567890</td>
+        <td th:text="${user.active} ? 'true' : 'false'">active</td>
+        <td>
+                <span th:each="role, stat : ${user.role}"
+                      th:text="${role} + (${stat.last} ? '' : ', ')">role</span>
+        </td>
+        <td>
+            <form th:action="@{/admin/user/ban/{id}(id=${user.id})}" method="post">
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                <input type="submit" value="Бан">
+            </form>
+        </td>
+        <td>
+            <a th:href="@{/admin/user/edit/{id}(id=${user.id})}">Редактирование</a>
+        </td>
+        <td>
+            <a th:href="@{/user/{id}(id=${user.id})}">Подробная информация</a>
+        </td>
+    </tr>
+
+    <!-- Блок когда пользователей нет -->
+    <tr th:if="${users == null or users.isEmpty()}">
+        <td colspan="7">
+            <h3>Пользователей нет</h3>
+        </td>
+    </tr>
+    </tbody>
+</table>
+    <a th:href="@{/}">перейти на главную страницу</a>
+
+</body>
+</html>

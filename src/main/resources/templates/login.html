@@ -6,9 +6,7 @@
 </head>
 <body>
 <h1>Авторизация</h1>
-<div th:if="${param.success}">
-    Регистрация прошла успешно! Пожалуйста, войдите.
-</div>
+
 <form action="/login" method="post">
     Электронная почта: <input type="email" name="username"><br><br>
     Пароль: <input type="password" name="password"><br><br>

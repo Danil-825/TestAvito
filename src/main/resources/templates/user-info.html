@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Авито - Товары пользователя</title>
+</head>
+<body>
+<h1>Товары пользователя</h1>
+<h2>Подробная информация о пользователе</h2>
+<p th:text="${user.name}"></p>
+<p><b>Номер телефона: </b> <span th:text="${user.phoneNumber ?: 'не указан'}"></span></p>
+<p><b>Email: </b> <span th:text="${user.email ?: 'не указан'}"></span></p>
+
+<h3>Список товаров:</h3>
+<div th:each="product : ${products}">
+    <p>
+        <b th:text="${product.name}"></b>
+        <span th:text="${product.price} + ' руб.'"></span> |
+        <a th:href="@{/product/{id}(id=${product.id})}">Подробнее</a>
+    </p>
+</div>
+
+<a th:href="@{/}">Вернуться на главную</a>
+</body>
+</html>

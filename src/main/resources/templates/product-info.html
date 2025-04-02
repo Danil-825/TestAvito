@@ -18,8 +18,7 @@
 <p><b>Описание:</b> <span th:text="${product.description}"></span></p>
 <p><b>Цена:</b> <span th:text="${product.price} + ' руб.'"></span></p>
 <p><b>Город:</b> <span th:text="${product.city}"></span></p>
-<p><b>Автор:</b> <p th:text="${product.user?.name} ?: 'Не указан'"></p></p>
-<p><b>Номер телефона:</b> <span th:text="${product.user?.phoneNumber} ?: 'не указан'"></span></p>
+<p><b>Автор:</b> <a th:href="@{/user/{id}(id=${product.user.id})}" th:text="${product.user.name}"></a></p><p><b>Номер телефона:</b> <span th:text="${product.user?.phoneNumber} ?: 'не указан'"></span></p>
 
 <br>
 <a href="/">Вернуться на главную</a>

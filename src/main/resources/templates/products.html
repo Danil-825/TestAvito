@@ -16,6 +16,9 @@
     <a href="/login">Войти</a>
 </div>
 <hr>
+<a th:if="${#lists.contains(user.role, T(com.example.TestAvito.entity.enums.UserRole).ROLE_ADMIN)}"
+   th:href="@{/admin}">Панель администратора</a>
+<hr>
 <h4>Товары со всей России</h4>
 <form action="/" method="get">
     Поиск по названию объявления: <input type="text" name="name"><br>

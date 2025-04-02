@@ -4,6 +4,7 @@ import com.example.TestAvito.entity.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -38,12 +39,12 @@ public class User implements UserDetails {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
     private List<Product> products = new ArrayList<>();
     private LocalDateTime dateOfCreated;
-
+    @Getter
+    private boolean admin = false;
     @PrePersist
     private void init() {
         dateOfCreated = LocalDateTime.now();
     }
-
 
     //security
     @Override
